@@ -15,7 +15,7 @@ print(lb.classes_)
 
 while 1:
     try:
-        print("\nРсположение изображения:")
+        print("\nРаположение изображения:")
         inp = input()
 
         x = imread(inp, mode='L')
