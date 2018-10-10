@@ -1,18 +1,13 @@
-import numpy
 import joblib
 from keras import Sequential
 from keras.datasets import mnist
 from keras.layers import Conv2D, MaxPooling2D, Dropout, Flatten, Dense, np, GaussianDropout, Activation
 from keras_preprocessing.image import ImageDataGenerator
 
-
-def add_noise(x, noise_factor=0.2):
-    x = x + numpy.random.randn(*x.shape) * noise_factor
-    x = x.clip(0., 1.)
-    return x
-
+from helpers import add_noise
 
 batch_size = 512
+steps_per_epoch = 256
 num_classes = 10
 epochs = 12
 img_rows, img_cols = 28, 28
@@ -82,7 +77,7 @@ datagen = ImageDataGenerator(
 max_acc = 0
 
 h = model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size),
-                        epochs=10, steps_per_epoch=512,
+                        epochs=epochs, steps_per_epoch=steps_per_epoch,
                         verbose=1, validation_data=(x_test, y_test))
 
 score = model.evaluate(x_test, y_test, verbose=0)
